@@ -1,10 +1,13 @@
+; main.scm
+(define *input* '())
+
 (define (escape)
   (call/cc
    (lambda (return)
      (for-each (lambda (x)
                  (if (negative? x)
                      (return x)))
-               (list 1 2 3 -4 5 6))
+               *input*)
      #f)))
 
 (define (test-escape)
