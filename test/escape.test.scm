@@ -1,20 +1,18 @@
+; test/escape.test.scm
 (load "../escape.scm")
 
-(define (test-escape)
-  (let ((test-cases (list (cons (list 1 2 3 -4 5 6) -4)
-                           (cons (list 1 2 3 4 5 6) #f)
-                           (cons (list -1 2 3 -4 5 6) -1)
-                           (cons (list 1 2 3 4 -5 -6) -5)
-                           (cons (list 0 0 0 0 0 -1) -1)
-                           (cons (list 1 3 5 7 9) #f))))
-    (for-each
-     (lambda (test-case)
-       (let* ((input (car test-case))
-              (expected-output (cdr test-case))
-              (output (begin (set! *input* input) (escape))))
-         (if (equal? output expected-output)
-             (display (string-append "Test passed for input: " (number->string (length input)) " elements\n"))
-             (display (string-append "Test failed for input: " (number->string (length input)) " elements\n")))))
-     test-cases)))
+(define *test-cases*
+  '((() . ())
+    ((1 2 3 -4 -5 6) . (1 2 3 4 5 6))
+    ((-1 -2 -3 4 5 -6) . (1 2 3 4 5 6))
+    ((1 1 1 1 -1 -1 -1) . (1 1 1 1 1 1 1))))
 
-(test-escape)
+(for-each
+ (lambda (test-case)
+   (let ((input (car test-case))
+         (expected (cdr test-case)))
+     (let ((result (escape input)))
+       (unless (equal? result expected)
+         (format #t "Failed for input ~A. Expected ~A, but got ~A.~%"
+                 input expected result)))))
+ *test-cases*)
