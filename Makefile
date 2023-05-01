@@ -4,4 +4,4 @@ help:
 	@cat $(firstword $(MAKEFILE_LIST))
 
 test:
-	guile main.scm
+	guile *.test.scm
