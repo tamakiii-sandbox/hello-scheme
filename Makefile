@@ -4,4 +4,4 @@ help:
 	@cat $(firstword $(MAKEFILE_LIST))
 
 test:
-	guile *.test.scm
+	find test -name '*.test.scm' | xargs -I@ guile @
