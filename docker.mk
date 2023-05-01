@@ -16,6 +16,9 @@ build: Dockerfile
 bash: build
 	$(call docker-run,$@)
 
+run: build
+	$(call docker-run,make $@)
+
 test: build
 	$(call docker-run,make $@)
 
