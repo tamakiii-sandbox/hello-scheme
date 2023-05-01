@@ -1,4 +1,4 @@
-(load "escape.scm")
+(load "../escape.scm")
 
 (define (test-escape)
   (let ((test-cases (list (cons (list 1 2 3 -4 5 6) -4)
